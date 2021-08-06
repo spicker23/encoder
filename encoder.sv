@@ -1,21 +1,23 @@
-module encod (in, enc_out, enable)
-
-    parameter OUT_SIZE = 4;
-    parameter IN_SIZE = 1<<OUT_SIZE;
-
-    input logic [IN_SIZE-1:0] in;
-    output logic [OUT_SIZE-1:0] enc_out;
-
-    logic [OUT_SIZE-1:0] out;
-    assign enc_out = out;
-    input enable;
+module encoder #(
+    parameter OUT_SIZE = 4,
+    localparam IN_SIZE = 1<<OUT_SIZE
+)(
+    input logic [IN_SIZE-1:0] in,
+    output logic [OUT_SIZE-1:0] out,
+    input logic enable
+);
 
     integer i;
-    always @(in) begin
+    always_comb begin
+        out = 0;
         if(enable) begin
-            i=0;
-            while (i<IN_SIZE-1 && !in[i]) i=i+1;
-                out <= i;
-        end else out <= 0;
+            for (i = 0; i < IN_SIZE-1; i++)
+                if (in[i])
+                    out |= i;
+        end
     end
 endmodule
+
+
+// переписать код, задавать out значения от входов*
+// 16 разница |= или =, какая их схем будет проще

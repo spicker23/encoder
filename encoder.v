@@ -1,12 +1,12 @@
-module encoder (in, enc_out, enable);
+module encod (in, enc_out, enable)
 
     parameter OUT_SIZE = 4;
     parameter IN_SIZE = 1<<OUT_SIZE;
 
-    input wire [IN_SIZE-1:0] in;
-    output wire [OUT_SIZE-1:0] enc_out;
+    input logic [IN_SIZE-1:0] in;
+    output logic [OUT_SIZE-1:0] enc_out;
 
-    reg [OUT_SIZE-1:0] out;
+    logic [OUT_SIZE-1:0] out;
     assign enc_out = out;
     input enable;
 
