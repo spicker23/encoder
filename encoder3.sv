@@ -1,20 +1,26 @@
 module encoder #(
     parameter OUT_SIZE = 4,
-    localparam IN_SIZE = 1<<OUT_SIZE
+    IN_SIZE = 1<<OUT_SIZE
+    //localparam IN_SIZE = 1<<OUT_SIZE
 )(
     input logic [IN_SIZE-1:0] in,
     output logic [OUT_SIZE-1:0] out,
-    input logic enable
+    //input logic enable
 );
-    logic [OUT_SIZE-1:0] rom_int    [IN_SIZE-1:0]; // массив шин
+    //logic [OUT_SIZE-1:0] rom_int    [IN_SIZE-1:0]; // массив шин
+    logic [IN_SIZE-1:0] [OUT_SIZE-1:0] rom_int    ; // массив шин
 
     integer i, j;
     genvar i_gen;   // блок для генерации ...
 
-    generate;
-        for (i_gen = 0; i_gen < IN_SIZE; i_gen++)
-            rom_int[i_gen] = i_gen; // получили нумерованный список
-    endgenerate
+    //generate;
+    always_comb begin
+        //for (i_gen = 0; i_gen < IN_SIZE; i_gen++)
+        for (int i = 0; i < IN_SIZE; i++)
+            //rom_int[i_gen] = i_gen;
+            rom_int[i] = i; // получили нумерованный список
+    //endgenerate
+    end
 
     always_comb begin
         for (i = 0; i < OUT_SIZE; i++) begin // на каждой итерации формируем одно значение выхода
